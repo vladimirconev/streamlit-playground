@@ -7,9 +7,7 @@ def main():
         layout="centered"
     )
 
-    STREAMLIT_SVG = "images/streamlit-logo-primary-colormark-darktext.svg"
-
-    st.image(STREAMLIT_SVG, caption="Playground")
+    st.image("images/streamlit-logo-primary-colormark-darktext.svg", caption="Playground")
 
     st.header("GIT email config", divider="gray")
 
@@ -53,12 +51,13 @@ def main():
     st.header("Ollama", divider="red")
 
     st.image("images/Lama--Streamline-Ultimate.png", caption=None)
-
     if st.button("List"):
         process = subprocess.Popen(["ollama", "list"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         stdout, stderr = process.communicate()
         st.text(stdout)
-
+        out = split(stdout, "\n")
+        models = extractNames(out, " ")
+        print(models)
     model_to_pull = st.text_input("LLM model", "i.e. llama3.2-vision")
     if st.button("Pull"):
         os.system(f"ollama pull {model_to_pull}")
@@ -88,6 +87,24 @@ def main():
         st.text(response.message.content)
         st.json(response.message.content, expanded=True)
 
+
+def split(input_sample:str, delimiter:str)->list[str]:
+    lines = input_sample.split(delimiter)
+    output = []
+    for line in lines:
+        # Example processing: Convert each string to uppercase
+        if not line.startswith("NAME") and line:
+            output.append(line)
+    return output
+
+def extractNames(entries:list[str], delimiter:str)->list[str]:
+    output = []
+    for entry in entries:
+        tokens = entry.split(delimiter)
+        name = tokens[0]
+        if name:
+            output.append(name)
+    return output
 
 if __name__ == "__main__":
     import base64

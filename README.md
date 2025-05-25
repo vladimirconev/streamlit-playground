@@ -12,4 +12,7 @@ https://github.com/streamlit/streamlit provides unique opportunity to do fast pr
 # Run 
 ``streamlit run app.py ``
 
+# Debug 
+In PyCharm in Run/Debug configuration select module `streamlit` and script parameters `run app.py` and you are ready to go! <br/>
+
 Happy Coding! :8ball: :rocket:
