@@ -92,7 +92,6 @@ def split(input_sample:str, delimiter:str)->list[str]:
     lines = input_sample.split(delimiter)
     output = []
     for line in lines:
-        # Example processing: Convert each string to uppercase
         if not line.startswith("NAME") and line:
             output.append(line)
     return output
