@@ -56,7 +56,7 @@ def main():
         stdout, stderr = process.communicate()
         st.text(stdout)
         out = split(stdout, "\n")
-        models = extractNames(out, " ")
+        models = extract_names(out, " ")
         print(models)
     model_to_pull = st.text_input("LLM model", "i.e. llama3.2-vision")
     if st.button("Pull"):
@@ -97,7 +97,7 @@ def split(input_sample:str, delimiter:str)->list[str]:
             output.append(line)
     return output
 
-def extractNames(entries:list[str], delimiter:str)->list[str]:
+def extract_names(entries:list[str], delimiter:str)->list[str]:
     output = []
     for entry in entries:
         tokens = entry.split(delimiter)
